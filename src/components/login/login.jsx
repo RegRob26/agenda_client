@@ -15,9 +15,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { signIn, signUp } from '@/services/login/login.js';
+import { useToast } from '@/components/ui/use-toast.js';
 
 function Login(props) {
     const navigate = useNavigate();
+    const { toast } = useToast();
     const schema = z.object({
         email: z.string().email({
             message: 'Ingresa un correo válido',
@@ -36,8 +39,27 @@ function Login(props) {
     });
 
 
-    function onSubmit(event) {
-        console.log('submitting form...');
+    async function onSubmit(event) {
+        const data = form.getValues();
+        console.log("data: ", data);
+        await signIn(data).then((response) => {
+            //Hanlde here the login access
+            if (response.statusCode===200 && response.access_token) {
+                setTimeout(() => {
+                    toast({
+                        title: 'Bienvenido',
+                        description: 'Has ingresado correctamente',
+                        variant: 'success',
+                    })
+                    //Save the token in the cookies
+                    document.cookie = `token=${response.access_token}`;
+                    navigate('/home');
+                }, 1000);
+            }
+            else {
+                console.log(response);
+            }
+        })
     }
 
     return (

@@ -7,10 +7,12 @@ import { Input } from '@/components/ui/input.jsx';
 import { Button } from '@/components/ui/button.jsx';
 import { signUp } from '@/services/login/login.js';
 import { useToast } from "@/components/ui/use-toast"
+import { useNavigate } from 'react-router-dom';
 
 
 function Signup(props) {
     const [isSignUp, setIsSignUp] = useState(true);
+    const navigate = useNavigate();
     const { toast } = useToast();
 
     function showToast(message, status) {
@@ -76,6 +78,12 @@ function Signup(props) {
             console.log(response);
             if (response.message) {
                 showToast(response.message, response.statusCode)
+                if (response.statusCode === 201) {
+                    form.reset();
+                    setTimeout(() => {
+                        navigate('/signin')
+                    }, 2000)
+                }
             }
         })
     }
