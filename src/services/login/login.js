@@ -17,3 +17,20 @@ export const signIn = async (user, password) => {
     } catch (e) {
     }
 }
+
+export const signUp = async (userData) => {
+
+    try {
+        return await fetch(API.BASEURL + "/users/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        }).then((res) => res.json())
+    }
+    catch (e) {
+        return e
+    }
+
+}
