@@ -10,7 +10,6 @@ import { Toaster } from '@/components/ui/toaster.jsx';
 function App() {
     return (
         <>
-
             <Toaster />
             <Router>
                 <RoutesComponent/>
