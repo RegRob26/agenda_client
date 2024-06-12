@@ -121,11 +121,17 @@ function Login(props) {
                                         </div>
                                     )}
                                 />
+                                {/*
+                                    Maybe we can add a remember me checkbox
+                                    maybe we can add a component to buttons
+                                */}
                                 <div>
                                     <Button
                                         type="submit"
                                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold
-                                        leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
+                                        leading-6 text-white shadow-sm bg-gradient-to-r from-blue-300 to-blue-500
+                                        hover:from-blue-500 hover:to-blue-700
+                                        focus-visible:outline focus-visible:outline-2
                                         focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                         Ingresar
                                     </Button>
