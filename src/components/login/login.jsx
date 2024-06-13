@@ -53,7 +53,8 @@ function Login(props) {
                     })
                     //Save the token in the cookies
                     document.cookie = `token=${response.access_token}`;
-                    navigate('/home');
+                    document.cookie = `user_id=${response.user_id}`;
+                    navigate('/');
                 }, 1000);
             }
             else {
