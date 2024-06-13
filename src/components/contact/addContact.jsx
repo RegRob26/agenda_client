@@ -6,6 +6,15 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addContact } from '@/services/contacts/contacts.js';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form.jsx';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { Input } from '@/components/ui/input.jsx';
 import { Button } from '@/components/ui/button.jsx';
 
@@ -13,8 +22,15 @@ function AddContact(props) {
     {
         const [isSignUp, setIsSignUp] = useState(true);
         const [moreData, setMoreData] = useState(false);
+        //const [morePhone, setMorePhone] = useState(false);
+
         const navigate = useNavigate();
         const { toast } = useToast();
+
+        const Label = {
+            TRABAJO: 'Work',
+            PERSONAL: 'Personal',
+        }
 
         function showToast(message, status) {
             let statusType = 'success'
@@ -48,9 +64,14 @@ function AddContact(props) {
             phone: z.string().min(10, {
                 message: 'El teléfono debe tener al menos 10 caracteres'
             }),
-
+            phone_type: z.nativeEnum(Label, {
+                message: 'Selecciona una etiqueta'
+            }),
             email: z.string().email({
                 message: 'Ingresa un correo válido'
+            }),
+            email_type: z.nativeEnum(Label, {
+                message: 'Selecciona una etiqueta'
             }),
 
         });
@@ -64,11 +85,22 @@ function AddContact(props) {
                 second_last_name: '',
                 phone: '',
                 email: '',
+                label: Label.PERSONAL,
             },
         })
 
         async function onSubmit() {
             const data = form.getValues();
+            console.log('data before: ', data);
+            data.phones = [{
+                phone_type: data.phone_type,
+                phone_number: data.phone
+            }]
+            data.emails = [{
+                email_type: data.email_type,
+                email: data.email
+            }]
+            console.log('data after: ', data);
             setIsSignUp(true);
             await addContact(data).then((response) => {
                 console.log(response);
@@ -88,17 +120,17 @@ function AddContact(props) {
             <div className='relative pb-20'>
                 <div className='flex flex-col md:flex-row mr-4 '>
                     <div className='md:mx-auto justify-center py-10'>
-                        <div>
+                        <div >
                             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                                 Registra un nuevo contacto
                             </h2>
                         </div>
-                        <p className=" text-center text-sm text-gray-500 py-5">
+                        <p className="text-center text-sm text-gray-500 py-5 ">
                             <a onClick={() => {
                                 setMoreData(!moreData);
                                 console.log('moreData', moreData);
                             }}
-                               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                               className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500" >
                                 Mostrar {!moreData ? 'más' : 'menos'} campos
                             </a>
                         </p>
@@ -212,6 +244,33 @@ function AddContact(props) {
                                             </div>
                                         )}
                                     />
+                                    <div className='mr-40 md:mr-0'>
+                                        <FormField
+                                            control={form.control}
+                                            name="email_type"
+                                            render={({ field }) => (
+                                                <div>
+                                                    <FormItem>
+                                                        <FormLabel>Etiqueta</FormLabel>
+                                                        <Select onValueChange={field.onChange} value={field.value}>
+                                                            <FormControl>
+                                                                <SelectTrigger>
+                                                                    <SelectValue
+                                                                        placeholder='Selecciona una etiqueta' />
+                                                                </SelectTrigger>
+                                                            </FormControl>
+                                                            <SelectContent>
+                                                                <SelectItem value={Label.PERSONAL}>Personal</SelectItem>
+                                                                <SelectItem value={Label.TRABAJO}>Trabajo</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                </div>
+                                            )}
+                                        />
+                                    </div>
+
                                     <FormField
                                         control={form.control}
                                         name="phone"
@@ -230,13 +289,42 @@ function AddContact(props) {
                                             </div>
                                         )}
                                     />
+                                    <div className='mr-40 md:mr-0'>
+                                        <FormField
+                                            control={form.control}
+                                            name="phone_type"
+                                            render={({ field }) => (
+                                                <div>
+                                                    <FormItem>
+                                                        <FormLabel>Etiqueta</FormLabel>
+                                                        <Select onValueChange={field.onChange} value={field.value}>
+                                                            <FormControl>
+                                                                <SelectTrigger>
+                                                                    <SelectValue
+                                                                        placeholder='Selecciona una etiqueta'/>
+                                                                </SelectTrigger>
+                                                            </FormControl>
+                                                            <SelectContent>
+                                                                <SelectItem value={Label.PERSONAL}>Personal</SelectItem>
+                                                                <SelectItem value={Label.TRABAJO}>Trabajo</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                </div>
+                                            )}
+                                        />
+                                    </div>
+                                    <div>
+
+                                    </div>
                                     <div>
                                         <Button
                                             type="submit"
-                                            disabled={!isSignUp}
+                                            disabled={form.formState.isSubmitting}
                                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
-                                            Agregar
+                                            Agregar contacto
                                         </Button>
                                     </div>
                                 </form>
