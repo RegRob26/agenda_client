@@ -8,9 +8,9 @@ import IconButton from '@/components/common/bottom navbar/iconButton.jsx';
 
 function BottomNabvar(props) {
     const manuItems = [
-        { Icon: Star, label: 'Favoritos', path: '/favorites' },
+        { Icon: Star, label: 'Favoritos', path: '/contacts' },
         { Icon: CirclePlus, label: 'Agregar', path: '/addContact' },
-        { Icon: Users, label: 'Usuarios', path: '/users' },
+        { Icon: Users, label: 'Contactos', path: '/contacts' },
     ]
 
     return (

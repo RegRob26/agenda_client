@@ -8,15 +8,16 @@ function Navbar(props) {
     const [isOpen, setIsOpen] = useState(false);
     const menus = [
         { title: 'Contactos', path: '/contacts' },
+        { title: 'Agregar', path: '/addContact' },
     ];
 
     return (
         <>
-            <nav className="fixed top-0 left-0 w-full  py-8 bg-gradient-to-b from-white from-50% via-gray-50 to-gray-100 z-50 ">
+            <nav className="fixed top-0 left-0 w-full py-2 bg-gradient-to-b from-white from-50% via-gray-50 to-gray-100 z-50">
                 <div className="flex items-center justify-between  mx-2 md:mx-4 ">
                     <div className="flex-shrink-0 ">
                         <Link to="/" className="text-black">
-                            <h1 className="text-gray-600 hover:text-gray-950 text-xl">Contactos App</h1>
+                            <h1 className="text-gray-600 hover:text-gray-950 text-xl">Directorio</h1>
                         </Link>
                     </div>
                     <div className="hidden md:block flex-grow text-center">

@@ -7,10 +7,10 @@ function Layout(props) {
     return (
         <>
             <Navbar />
-            <div className="">
+            <div className="pt-6 md:pt-12">
                 <Outlet />
             </div>
-            <div className='md:hidden'>
+            <div className='pt-12 md:hidden'>
                 <BottomNabvar />
             </div>
         </>

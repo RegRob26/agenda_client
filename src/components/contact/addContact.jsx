@@ -85,7 +85,8 @@ function AddContact(props) {
                 second_last_name: '',
                 phone: '',
                 email: '',
-                label: Label.PERSONAL,
+                phone_type: Label.PERSONAL,
+                email_type: Label.PERSONAL,
             },
         })
 
@@ -100,10 +101,8 @@ function AddContact(props) {
                 email_type: data.email_type,
                 email: data.email
             }]
-            console.log('data after: ', data);
             setIsSignUp(true);
             await addContact(data).then((response) => {
-                console.log(response);
                 if (response.message) {
                     showToast(response.message, response.statusCode)
                     if (response.statusCode === 201) {
@@ -119,7 +118,7 @@ function AddContact(props) {
         return (
             <div className='relative pb-20'>
                 <div className='flex flex-col md:flex-row mr-4 '>
-                    <div className='md:mx-auto justify-center py-10'>
+                    <div className='md:mx-auto justify-center pb-4 border border-slate-200'>
                         <div >
                             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                                 Registra un nuevo contacto
@@ -321,7 +320,6 @@ function AddContact(props) {
                                     <div>
                                         <Button
                                             type="submit"
-                                            disabled={form.formState.isSubmitting}
                                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
                                             Agregar contacto

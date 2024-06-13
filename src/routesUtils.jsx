@@ -12,8 +12,7 @@ function RoutesComponent(props) {
         <div>
             <Routes>
                 <Route path='/' element={<Layout />}>
-                    {/* Here the other home component*/}
-                    <Route index element={<Home />} />
+                    <Route index element={<Contacts />} />
                     <Route path='addContact' element={<AddContact />} />
                     <Route path='contacts' element={<Contacts />} />
                 </Route>
