@@ -15,7 +15,7 @@ function BottomNabvar(props) {
 
     return (
         <div className="">
-            <nav className="fixed bottom-0 w-full py-8 flex border-t border-gray-200">
+            <nav className="fixed bottom-0 w-full py-8 flex border-t border-gray-200 bg-white">
                 {manuItems.map((item, index) => (
                     <IconButton Icon={item.Icon} label={item.label} path={item.path} key={index}/>
                 ))}
