@@ -7,6 +7,7 @@ import Layout from '@/components/common/layout/layout.jsx';
 import AddContact from '@/components/contact/addContact.jsx';
 import Contacts from '@/components/contact/contacts.jsx';
 import Contact from '@/components/contact/contact.jsx';
+import Profile from '@/components/profile/profile.jsx';
 
 function RoutesComponent(props) {
     return (
@@ -18,6 +19,7 @@ function RoutesComponent(props) {
                     <Route path='contacts' element={<Contacts />} />
                     <Route path='contacts/:id' element={<Contact />} />
                     <Route path='contacts/update' element={<AddContact />} />
+                    <Route path='profile' element={<Profile />} />
                 </Route>
                 <Route path="/signin" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />

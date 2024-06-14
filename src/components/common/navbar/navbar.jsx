@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Menu } from 'lucide-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
+    DropdownMenuLabel, DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu.jsx';
+import { User, LogOut } from 'lucide-react';
 
 
 function Navbar(props) {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate()
     const menus = [
         { title: 'Contactos', path: '/contacts' },
         { title: 'Agregar', path: '/addContact' },
     ];
+
+    const handleLogOut = () => {
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = '/signin';
+    }
 
     return (
         <>
@@ -39,10 +52,30 @@ function Navbar(props) {
                         </div>
                     </div>
                     <div className="flex justify-end items-center pb-05">
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Avatar>
+                                    <AvatarImage src="https://github.com/shadcn.png" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                    <DropdownMenuItem onClick={() => navigate('/profile')} >
+                                        <User className="w-4 h-4 mr-2" />
+                                        Perfil
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleLogOut}>
+                                        <LogOut className="w-4 h-4 mr-2" />
+                                        Cerrar sesión
+                                    </DropdownMenuItem>
+                                </DropdownMenuGroup>
+
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                     </div>
 
 
