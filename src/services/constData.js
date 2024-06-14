@@ -1,1 +1,1 @@
-export const BASEURL = '/api'
+export const BASEURL = 'https://agenda-server.onrender.com/api';
