@@ -45,7 +45,7 @@ function Contacts(props) {
     return (
         <div className='md:px-20'>
             <Table className='table-auto'>
-                <TableCaption >Lista de contactos.</TableCaption>
+                <TableCaption>{contacts.length === 0 ? "Aún no tienes contactos, agrega uno" : 'Lista de contactos' }</TableCaption>
                 <TableBody>
                     {contacts.map((contact) => (
                             <TableRow key={contact.contact_id} className='py-80 cursor-pointer' onClick={() => handleClick(contact)} >

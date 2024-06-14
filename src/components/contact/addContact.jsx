@@ -49,21 +49,28 @@ function AddContact(props) {
     const schema = z.object({
         first_name: z.string().min(2, {
             message: 'El nombre debe tener al menos 2 caracteres'
+        }).max(30, {
+            message: 'El nombre debe tener como máximo 30 caracteres'
         }),
-        middle_name: z.string().optional({
+        middle_name: z.string().min(2, {
             message: 'El segundo nombre debe tener al menos 2 caracteres'
-        }),
+        }).max(30, {
+            message: 'El segundo nombre debe tener como máximo 30 caracteres'
+        }).optional(),
         last_name: z.string().min(2, {
             message: 'El apellido debe tener al menos 2 caracteres'
+        }).max(30, {
+            message: 'El apellido debe tener como máximo 30 caracteres'
         }),
         second_last_name: z.string().optional({
             message: 'El segundo apellido debe tener al menos 2 caracteres'
         }),
         phone: z.string().min(10, {
             message: 'El teléfono debe tener al menos 10 caracteres'
+        }).max(15, {
+            message: 'El teléfono debe tener como máximo 15 caracteres'
         }),
-        phone_type: z.nativeEnum(Label, {
-            message: 'Selecciona una etiqueta'
+        phone_type: z.nativeEnum(Label, {e: 'Selecciona una etiqueta'
         }),
         email: z.string().email({
             message: 'Ingresa un correo válido'
