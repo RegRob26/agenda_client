@@ -79,7 +79,7 @@ function Signup(props) {
                     form.reset();
                     setTimeout(() => {
                         navigate('/signin')
-                    }, 2000)
+                    }, 100)
                 }
             }
         })
@@ -88,7 +88,7 @@ function Signup(props) {
     return (
         <div>
             <div className='flex flex-col md:flex-row'>
-                <div className='md:mx-auto justify-center py-14'>
+                <div className='md:mx-auto justify-center py-4 border border-slate-300'>
                     <div>
                         <img
                             className="mx-auto h-10 w-auto"
@@ -249,6 +249,9 @@ function Signup(props) {
                                         </div>
                                     )}
                                 />
+                                <div>
+
+                                </div>
 
                                 <div>
                                     <Button
@@ -261,13 +264,6 @@ function Signup(props) {
                                 </div>
                             </form>
                         </Form>
-
-                        <p className="mt-10 text-center text-sm text-gray-500">
-                            ¿Aún no tienes una cuenta? {' '}
-                            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                                Prueba la app
-                            </a>
-                        </p>
                     </div>
 
                 </div>
