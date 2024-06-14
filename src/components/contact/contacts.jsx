@@ -26,14 +26,12 @@ function Contacts(props) {
     useEffect(() => {
         getContacts().then((response) => {
             setContacts(response);
-            console.log('contacts', response);
         });
     }, [])
 
     const refreshContacts = () => {
         getContacts().then((response) => {
             setContacts(response);
-            console.log('contacts', response);
         });
     }
 
@@ -42,7 +40,6 @@ function Contacts(props) {
     const handleClick = (contact) => {
         setSelectedContact(contact)
         setOpen(true)
-        console.log('click', contact);
     }
 
     return (

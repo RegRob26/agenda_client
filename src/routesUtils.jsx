@@ -14,7 +14,7 @@ function RoutesComponent(props) {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<Contacts />} />
-                    <Route path='addContact' element={<AddContact />} />
+                    <Route path='addContact' element={<AddContact/>} />
                     <Route path='contacts' element={<Contacts />} />
                     <Route path='contacts/:id' element={<Contact />} />
                     <Route path='contacts/update' element={<AddContact />} />

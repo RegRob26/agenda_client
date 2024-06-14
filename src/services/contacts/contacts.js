@@ -3,7 +3,6 @@ import * as API from "./../constData.js"
 export const addContact = async (data) => {
     const token = getCookie('token')
     const user_id = getCookie('user_id')
-    console.log(user_id, token);
     data.user_id = user_id
 
     try {
@@ -23,8 +22,6 @@ export const addContact = async (data) => {
 export const getContacts = async () => {
     const token = getCookie('token')
     const user_id = getCookie('user_id')
-    console.log(user_id, token);
-
     try {
         return await fetch(API.BASEURL + "/contacts?user_id="+user_id, {
             method: "GET",
@@ -41,15 +38,14 @@ export const getContacts = async () => {
 export const updateContact = async (data) => {
     const token = getCookie('token')
     const user_id = getCookie('user_id')
-    console.log(user_id, token);
-
     try {
         return await fetch(API.BASEURL + "/contacts/"+data.contact_id, {
-            method: "UPDATE",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
-            }
+            },
+            body: JSON.stringify(data)
         }).then((res) => res.json())
     } catch (e) {
         return e
@@ -60,8 +56,6 @@ export const updateContact = async (data) => {
 export const deleteContact = async (id) => {
     const token = getCookie('token')
     const user_id = getCookie('user_id')
-    console.log(user_id, token);
-
     try {
         return await fetch(API.BASEURL + "/contacts/"+id, {
             method: "DELETE",

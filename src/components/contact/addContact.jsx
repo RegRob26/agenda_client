@@ -23,7 +23,6 @@ function AddContact(props) {
     const [moreData, setMoreData] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     //const [morePhone, setMorePhone] = useState(false);
-
     const navigate = useNavigate();
     const location = useLocation();
     const { toast } = useToast();
@@ -36,12 +35,10 @@ function AddContact(props) {
     function showToast(message, status) {
         let statusType = 'success'
         let variant = 'success'
-        if (status !== 201) {
-            console.log(status);
+        if (status !== 201 && status !== 200) {
             statusType = 'error'
             variant = 'destructive'
         }
-        console.log("statusType", statusType, "variant", variant, status);
         toast({
             title: message,
             variant: variant,
@@ -76,23 +73,23 @@ function AddContact(props) {
         }),
 
     });
+    const defaultValues = {
+        first_name: '',
+        middle_name: '',
+        last_name: '',
+        second_last_name: '',
+        phone: '',
+        email: '',
+        phone_type: Label.PERSONAL,
+        email_type: Label.PERSONAL,
+    }
 
     const form = useForm({
         resolver: zodResolver(schema),
-        defaultValues: {
-            first_name: '',
-            middle_name: '',
-            last_name: '',
-            second_last_name: '',
-            phone: '',
-            email: '',
-            phone_type: Label.PERSONAL,
-            email_type: Label.PERSONAL,
-        },
+        defaultValues: defaultValues,
     })
 
     useEffect(() => {
-        console.log('proof', location);
         if (location.state) {
             const formData = location.state;
             formData.phone = formData.phones[0].phone_number;
@@ -100,40 +97,42 @@ function AddContact(props) {
             formData.email = formData.emails[0].email;
             formData.email_type = formData.emails[0].email_type;
             form.reset(formData);
-            console.log('formData', formData);
-
-            form.reset(location.state);
             setIsUpdating(true);
-            console.log('updating', isUpdating);
+        } else {
+            form.reset(defaultValues);
+            setIsUpdating(false);
         }
-    }, []);
+    }, [location.pathname]);
 
     async function onSubmit() {
+        const dataExtra = location.state
         const data = form.getValues();
-        console.log('data before: ', data);
         data.phones = [{
             phone_type: data.phone_type,
-            phone_number: data.phone
+            phone_number: data.phone,
+            is_primary: false
         }]
         data.emails = [{
             email_type: data.email_type,
+            is_primary: false,
             email: data.email
+
         }]
         setIsSignUp(true);
         if (isUpdating) {
-            console.log('updating contact', data);
+            data.phones[0].phone_id = dataExtra.phones[0].phone_id;
+            data.emails[0].email_id = dataExtra.emails[0].email_id;
             await updateContact(data).then((response) => {
                 if (response.message) {
                     showToast(response.message, response.statusCode)
-                    if (response.statusCode === 201) {
+                    if (response.statusCode === 200) {
                         form.reset();
                         setTimeout(() => {
                             navigate('/contacts');
-                        }, 2000)
+                        }, 100)
                     }
                 }
             })
-
         } else {
             await addContact(data).then((response) => {
                 if (response.message) {
@@ -155,13 +154,12 @@ function AddContact(props) {
                 <div className='md:mx-auto justify-center pb-4 border border-slate-200'>
                     <div >
                         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                            Registra un nuevo contacto
+                            {isUpdating ? 'Actualizar contacto' : 'Agregar contacto'}
                         </h2>
                     </div>
                     <p className="text-center text-sm text-gray-500 py-5 ">
                         <a onClick={() => {
                             setMoreData(!moreData);
-                            console.log('moreData', moreData);
                         }}
                            className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500" >
                             Mostrar {!moreData ? 'más' : 'menos'} campos

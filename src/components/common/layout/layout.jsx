@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 function Layout(props) {
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <div className="pt-6 md:pt-12">
                 <Outlet />
             </div>

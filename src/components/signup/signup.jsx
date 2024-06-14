@@ -19,11 +19,9 @@ function Signup(props) {
         let statusType = 'success'
         let variant = 'success'
         if (status !== 201){
-            console.log(status);
             statusType = 'error'
             variant = 'destructive'
         }
-        console.log("statusType", statusType, "variant", variant, status);
         toast({
             title: message,
             variant: variant,
@@ -75,7 +73,6 @@ function Signup(props) {
         const data = form.getValues();
         setIsSignUp(true);
         await signUp(data).then((response) => {
-            console.log(response);
             if (response.message) {
                 showToast(response.message, response.statusCode)
                 if (response.statusCode === 201) {

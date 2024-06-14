@@ -41,7 +41,6 @@ function Login(props) {
 
     async function onSubmit(event) {
         const data = form.getValues();
-        console.log("data: ", data);
         await signIn(data).then((response) => {
             //Hanlde here the login access
             if (response.statusCode===200 && response.access_token) {
@@ -58,7 +57,6 @@ function Login(props) {
                 }, 1000);
             }
             else {
-                console.log(response);
             }
         })
     }

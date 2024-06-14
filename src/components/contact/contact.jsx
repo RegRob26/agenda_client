@@ -35,11 +35,9 @@ function ContactInd({ _contact, open, onOpenChange, refresh }) {
         let statusType = 'success'
         let variant = 'success'
         if (status !== 200) {
-            console.log(status);
             statusType = 'error'
             variant = 'destructive'
         }
-        console.log("statusType", statusType, "variant", variant, status);
         toast({
             title: message,
             variant: variant,
@@ -48,10 +46,8 @@ function ContactInd({ _contact, open, onOpenChange, refresh }) {
     }
 
     const handleDelete = async () => {
-        console.log('delete: ', _contact);
         await deleteContact(_contact.contact_id).then((response) => {
             if (response.message) {
-                console.log('response', response);
                 showToast(response.message, response.statusCode)
                 if (response.statusCode === 200) {
                     refresh();
