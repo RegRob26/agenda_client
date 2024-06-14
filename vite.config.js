@@ -11,10 +11,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  proxy: {
-    '/': {
-      target: 'http://localhost:3000',
-      changeOrigin: true,
-    }
+  server: {
+    proxy: {
+      '/api': {
+        //target: 'http://localhost:3000',
+        target: 'https://agenda-server.onrender.com',
+        changeOrigin: true,
+      }
+    },
+    port: 5173,
   }
+
 })
