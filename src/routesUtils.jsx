@@ -17,6 +17,7 @@ function RoutesComponent(props) {
                     <Route path='addContact' element={<AddContact />} />
                     <Route path='contacts' element={<Contacts />} />
                     <Route path='contacts/:id' element={<Contact />} />
+                    <Route path='contacts/update' element={<AddContact />} />
                 </Route>
                 <Route path="/signin" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />

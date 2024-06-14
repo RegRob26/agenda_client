@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button.jsx';
 import { MoveRight } from 'lucide-react';
 import {
@@ -15,6 +15,7 @@ import { useToast } from '@/components/ui/use-toast.js';
 function ContactInd({ _contact, open, onOpenChange, refresh }) {
     //const { state } = useLocation();
     //const contact = state.contact;
+    const navigate = useNavigate();
     const contact = _contact
     const { toast } = useToast();
     const contactShow = {...contact}
@@ -59,10 +60,12 @@ function ContactInd({ _contact, open, onOpenChange, refresh }) {
                 }
             }
         })
-
     }
 
-    console.log('contactcra', contact);
+    const handleUpdate = () => {
+        navigate('/contacts/update', { state: contact })
+    }
+
     return (
         <div className="flex justify-center items-center ">
             <Dialog className="w-[500px]" open={open} onOpenChange={onOpenChange} >
@@ -102,7 +105,7 @@ function ContactInd({ _contact, open, onOpenChange, refresh }) {
                         </div>
                     <DialogFooter className="flex justify-between">
                         <Button variant="outline" onClick={handleDelete}>Eliminar</Button>
-                        <Button>Editar</Button>
+                        <Button onClick={handleUpdate}>Editar</Button>
                     </DialogFooter>
                 </DialogContent>
 

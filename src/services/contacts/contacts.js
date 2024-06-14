@@ -38,6 +38,25 @@ export const getContacts = async () => {
     }
 }
 
+export const updateContact = async (data) => {
+    const token = getCookie('token')
+    const user_id = getCookie('user_id')
+    console.log(user_id, token);
+
+    try {
+        return await fetch(API.BASEURL + "/contacts/"+data.contact_id, {
+            method: "UPDATE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        }).then((res) => res.json())
+    } catch (e) {
+        return e
+    }
+}
+
+
 export const deleteContact = async (id) => {
     const token = getCookie('token')
     const user_id = getCookie('user_id')
