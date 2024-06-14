@@ -52,18 +52,23 @@ function AddContact(props) {
         }).max(30, {
             message: 'El nombre debe tener como máximo 30 caracteres'
         }),
+
         middle_name: z.string().min(2, {
             message: 'El segundo nombre debe tener al menos 2 caracteres'
         }).max(30, {
             message: 'El segundo nombre debe tener como máximo 30 caracteres'
-        }).optional(),
+        }).or(z.string().max(0)),
+
         last_name: z.string().min(2, {
             message: 'El apellido debe tener al menos 2 caracteres'
         }).max(30, {
             message: 'El apellido debe tener como máximo 30 caracteres'
         }),
-        second_last_name: z.string().optional({
-            message: 'El segundo apellido debe tener al menos 2 caracteres'
+
+        second_last_name: z.string().min(2, {
+            message: 'El nombre debe tener al menos 2 caracteres'
+        }).max(30, {
+            message: 'El nombre debe tener como máximo 30 caracteres'
         }),
         phone: z.string().min(10, {
             message: 'El teléfono debe tener al menos 10 caracteres'
