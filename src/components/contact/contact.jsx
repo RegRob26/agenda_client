@@ -9,11 +9,14 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog.jsx';
+import { deleteContact } from '@/services/contacts/contacts.js';
+import { useToast } from '@/components/ui/use-toast.js';
 
-function ContactInd({ _contact, open, onOpenChange }) {
+function ContactInd({ _contact, open, onOpenChange, refresh }) {
     //const { state } = useLocation();
     //const contact = state.contact;
     const contact = _contact
+    const { toast } = useToast();
     const contactShow = {...contact}
 
     delete contactShow.user_id
@@ -25,6 +28,38 @@ function ContactInd({ _contact, open, onOpenChange }) {
 
     const mapLabel = {
         'Work': 'Trabajo',
+    }
+
+    function showToast(message, status) {
+        let statusType = 'success'
+        let variant = 'success'
+        if (status !== 200) {
+            console.log(status);
+            statusType = 'error'
+            variant = 'destructive'
+        }
+        console.log("statusType", statusType, "variant", variant, status);
+        toast({
+            title: message,
+            variant: variant,
+            type: statusType
+        })
+    }
+
+    const handleDelete = async () => {
+        console.log('delete: ', _contact);
+        await deleteContact(_contact.contact_id).then((response) => {
+            if (response.message) {
+                console.log('response', response);
+                showToast(response.message, response.statusCode)
+                if (response.statusCode === 200) {
+                    refresh();
+                    onOpenChange();
+
+                }
+            }
+        })
+
     }
 
     console.log('contactcra', contact);
@@ -66,7 +101,7 @@ function ContactInd({ _contact, open, onOpenChange }) {
                             </div>
                         </div>
                     <DialogFooter className="flex justify-between">
-                        <Button variant="outline">Regresar</Button>
+                        <Button variant="outline" onClick={handleDelete}>Eliminar</Button>
                         <Button>Editar</Button>
                     </DialogFooter>
                 </DialogContent>

@@ -38,6 +38,24 @@ export const getContacts = async () => {
     }
 }
 
+export const deleteContact = async (id) => {
+    const token = getCookie('token')
+    const user_id = getCookie('user_id')
+    console.log(user_id, token);
+
+    try {
+        return await fetch(API.BASEURL + "/contacts/"+id, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        }).then((res) => res.json())
+    } catch (e) {
+        return e
+    }
+}
+
 const getCookie = (name) => {
     return document.cookie.split("; ").find((row) => row.startsWith(name+'='))?.split("=")[1];
 }

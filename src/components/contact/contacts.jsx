@@ -20,6 +20,7 @@ function Contacts(props) {
     const [contacts, setContacts] = React.useState([]);
     const [selectedContact, setSelectedContact] = useState(null);
     const [open, setOpen] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -28,6 +29,15 @@ function Contacts(props) {
             console.log('contacts', response);
         });
     }, [])
+
+    const refreshContacts = () => {
+        getContacts().then((response) => {
+            setContacts(response);
+            console.log('contacts', response);
+        });
+    }
+
+
 
     const handleClick = (contact) => {
         setSelectedContact(contact)
@@ -61,7 +71,7 @@ function Contacts(props) {
                     ))}
                 </TableBody>
             </Table>
-            {selectedContact && <ContactInd _contact={selectedContact} open={open} onOpenChange={setOpen}/>}
+            {selectedContact && <ContactInd _contact={selectedContact} open={open} onOpenChange={setOpen} refresh={refreshContacts}/>}
         </div>
     );
 }
