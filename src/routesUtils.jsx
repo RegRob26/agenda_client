@@ -6,6 +6,7 @@ import Home from '@/components/home/home.jsx';
 import Layout from '@/components/common/layout/layout.jsx';
 import AddContact from '@/components/contact/addContact.jsx';
 import Contacts from '@/components/contact/contacts.jsx';
+import Contact from '@/components/contact/contact.jsx';
 
 function RoutesComponent(props) {
     return (
@@ -15,6 +16,7 @@ function RoutesComponent(props) {
                     <Route index element={<Contacts />} />
                     <Route path='addContact' element={<AddContact />} />
                     <Route path='contacts' element={<Contacts />} />
+                    <Route path='contacts/:id' element={<Contact />} />
                 </Route>
                 <Route path="/signin" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
