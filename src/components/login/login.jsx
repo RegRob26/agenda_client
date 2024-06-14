@@ -54,9 +54,15 @@ function Login(props) {
                     document.cookie = `token=${response.access_token}`;
                     document.cookie = `user_id=${response.user_id}`;
                     navigate('/');
-                }, 1000);
+                }, 100);
             }
             else {
+                toast({
+                    title: 'Algo ha salido mal',
+                    description: response.message,
+                    variant: 'destructive',
+                    timeout: 3000,
+                })
             }
         })
     }
