@@ -48,7 +48,7 @@ function Contacts(props) {
                 <TableCaption >Lista de contactos.</TableCaption>
                 <TableBody>
                     {contacts.map((contact) => (
-                            <TableRow key={contact.contact_id} className='py-80' onClick={() => handleClick(contact)}>
+                            <TableRow key={contact.contact_id} className='py-80 cursor-pointer' onClick={() => handleClick(contact)} >
                                 <TableCell className="font-medium text-center">
                                     {contact.first_name}
                                 </TableCell>
