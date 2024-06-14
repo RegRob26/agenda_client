@@ -36,7 +36,7 @@ function Navbar(props) {
                     </div>
                     <div className="hidden md:block flex-grow text-center">
                         <div>
-                            Here the user can find
+
                         </div>
                     </div>
                     <div className='flex items-center space-x-4'>
